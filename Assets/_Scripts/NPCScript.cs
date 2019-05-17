@@ -84,7 +84,7 @@ public class NPCScript : MonoBehaviour {
         foreach (var actionItem in characterActions)
         {
             // If we're speaking or moving, wait until we're done before we start the next action
-            if (NPCVoice.isPlaying || GetComponent<UnityEngine.AI.NavMeshAgent>().hasPath) {
+            if (NPCVoice.isPlaying || transform.parent.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().hasPath) {
                 return;
             }
 
@@ -125,7 +125,7 @@ public class NPCScript : MonoBehaviour {
                     // Should we move? If so, move
                     if (actionItem.actionLead)
                     {
-                        GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(actionItem.actionLocation.transform.position);
+                        transform.parent.gameObject.GetComponent<UnityEngine.AI.NavMeshAgent>().SetDestination(actionItem.actionLocation.transform.position);
                     }
 
                     if (characterActions.Count > actionIndex + 1)

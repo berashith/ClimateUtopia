@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class GameController : MonoBehaviour {
 
@@ -78,7 +79,14 @@ public class GameController : MonoBehaviour {
     GameObject addNPC(string characterName, string characterRole, int NPCBody, Vector3 characterLocation, float movementSpeed)
     {
         //        var newNPC = Instantiate(NPCBodies.transform.GetChild(NPCBody).gameObject, characterLocation, Quaternion.Euler(-180, -90, 0));
-        var newNPC = Instantiate(NPCBodies.transform.GetChild(NPCBody).gameObject, characterLocation, NPCBodies.transform.GetChild(NPCBody).rotation);
+        var NPCContainer = Instantiate(new GameObject(), characterLocation, Quaternion.Euler(0, 180, 0));
+        //var newNPC = Instantiate(NPCBodies.transform.GetChild(NPCBody).gameObject, characterLocation, NPCBodies.transform.GetChild(NPCBody).rotation);
+        var newNPC = Instantiate(NPCBodies.transform.GetChild(NPCBody).gameObject, characterLocation, Quaternion.Euler(-90, -90, 0));
+        newNPC.transform.parent = NPCContainer.transform;
+
+        var NavMeshAgent = NPCContainer.AddComponent(typeof(NavMeshAgent)) as NavMeshAgent;
+        NavMeshAgent.baseOffset = -0.9f;
+
         // These aren't used currently, but help us know who's who in the Editor.
         newNPC.name = characterName;
         newNPC.GetComponent<NPCScript>().characterName = characterName;
