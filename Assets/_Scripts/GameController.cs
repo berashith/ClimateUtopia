@@ -33,19 +33,19 @@ public class GameController : MonoBehaviour {
     void Start () {
         // Create Characters
 
-        EarthHealer = addNPC("EarthHealer", "EarthHealer", 0, new Vector3(4.1f, 0.45f, -97f), 1);
+        EarthHealer     = addNPC("EarthHealer",     "EarthHealer",  1, new Vector3(4.1f, 0.45f, -97f), 1);
+        PeopleHealer    = addNPC("PeopleHealer",    "PeopleHealer", 1, new Vector3(-6.5f, 0.45f, -45.9f), 1);
+        ChildGuide      = addNPC("ChildGuide",      "ChildGuide",   2, new Vector3(2.7f, 0.45f, -108f), 1);
+
         addAction("Good Choice",         EarthHealer,  false, true,  false, 1, null,            true,  characterSounds[0], false, null);
         addAction("Bottle Bucket",       EarthHealer,  false, false, false, 3, gazeObjects[0],  true,  characterSounds[1], false, null);
         addAction("Go To Soil Bucket",   EarthHealer,  false, false, false, 0, null,            false, null,               true,  locations[1]);
         addAction("Look in Soil Bucket", EarthHealer,  false, false, false, 1, null,            true,  characterSounds[2], false, null);
         addAction("Soil Bucket Speech",  EarthHealer,  false, false, false, 1, null,            true,  characterSounds[3], false, null);
 
-        PeopleHealer = addNPC("PeopleHealer", "PeopleHealer", 0, new Vector3(-6.5f, 0.45f, -45.9f), 1);
         addAction("Surprised",           PeopleHealer, false, true,  false,  1, null, true, characterSounds[4], false, null);
         addAction("Screen Bucket",       PeopleHealer, false, false, false,  3, gazeObjects[1], true, characterSounds[5], false, null);
 
-        ChildGuide = addNPC("ChildGuide", "ChildGuide", 0, new Vector3(2.7f, 0.45f, -108f), 1);
-        ChildGuide.transform.localScale = new Vector3(90.6f, 90.6f, 90.6f);
 
         addAction("Follow Me!",          ChildGuide,    false, true, false,  1, null, false, null, false, null);
         addAction("Go To EarthHealer",   ChildGuide,   false, false, false, 0, null, false, null, true, locations[1]);
@@ -80,6 +80,8 @@ public class GameController : MonoBehaviour {
     {
         //        var newNPC = Instantiate(NPCBodies.transform.GetChild(NPCBody).gameObject, characterLocation, Quaternion.Euler(-180, -90, 0));
         var NPCContainer = Instantiate(new GameObject(), characterLocation, Quaternion.Euler(0, 180, 0));
+        NPCContainer.name = characterName + "_Nav";
+
         //var newNPC = Instantiate(NPCBodies.transform.GetChild(NPCBody).gameObject, characterLocation, NPCBodies.transform.GetChild(NPCBody).rotation);
         var newNPC = Instantiate(NPCBodies.transform.GetChild(NPCBody).gameObject, characterLocation, Quaternion.Euler(-90, -90, 0));
         newNPC.transform.parent = NPCContainer.transform;
